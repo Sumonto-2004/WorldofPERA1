@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    margin: 0;
+    overflow: hidden;
+}
+
+.app-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.input-section, .display-section {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    animation: slideIn 1s;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px #218838;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    animation: bounce 2s infinite;
+}
+
+button:hover {
+    background-color: #218838;
+    box-shadow: 0 5px #1e7e34;
+}
+
+button:active {
+    background-color: #1e7e34;
+    box-shadow: 0 2px #1c7430;
+    transform: translateY(2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-100px); }
+    to { transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
+
+#results {
+    margin-top: 20px;
+    text-align: left;
+    animation: fadeIn 1s;
+}
+
+#results h2 {
+    color: #007bff;
+}
+
+#results ul {
+    list-style: none;
+    padding: 0;
+}
+
+.word-entry {
+    margin-bottom: 20px;
+    animation: slideIn 1s;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #4a4a4a;
+}
+
+.edit-form {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-form input {
+    margin: 5px 0;
+}
+
+.edit-form button {
+    background-color: #007bff;
+}
+
+.edit-form button:hover {
+    background-color: #0056b3;
+}
