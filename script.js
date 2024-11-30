@@ -1,3 +1,8 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAtekNe0gbPQvOgMRV9jLdcrawomqhsdV0",
@@ -10,9 +15,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 let currentIndex = 0;
 let wordKeys = [];
@@ -20,7 +25,7 @@ let wordKeys = [];
 function signUp() {
     const email = document.getElementById('emailInput').value;
     const password = document.getElementById('passwordInput').value;
-    auth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             alert('Account created!');
         })
@@ -32,7 +37,7 @@ function signUp() {
 function signIn() {
     const email = document.getElementById('emailInput').value;
     const password = document.getElementById('passwordInput').value;
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             document.querySelector('.auth-section').style.display = 'none';
             document.querySelector('.input-section').style.display = 'block';
@@ -44,8 +49,8 @@ function signIn() {
         });
 }
 
-function signOut() {
-    auth.signOut().then(() => {
+function signOutUser() {
+    signOut(auth).then(() => {
         document.querySelector('.auth-section').style.display = 'block';
         document.querySelector('.input-section').style.display = 'none';
         document.querySelector('.display-section').style.display = 'none';
@@ -59,7 +64,7 @@ function addWord() {
     const antonyms = document.getElementById('antonymsInput').value.split(',').map(a => a.trim());
 
     const userId = auth.currentUser.uid;
-    db.collection('users').doc(userId).collection('words').add({
+    addDoc(collection(db, 'users', userId, 'words'), {
         word: word,
         meaning: meaning,
         synonyms: synonyms,
@@ -74,24 +79,23 @@ function addWord() {
 
 function loadWords() {
     const userId = auth.currentUser.uid;
-    db.collection('users').doc(userId).collection('words').get()
-        .then((querySnapshot) => {
-            wordKeys = [];
-            querySnapshot.forEach((doc) => {
-                wordKeys.push(doc.id);
-            });
-            currentIndex = 0;
-            displayWords();
+    getDocs(collection(db, 'users', userId, 'words')).then((querySnapshot) => {
+        wordKeys = [];
+        querySnapshot.forEach((doc) => {
+            wordKeys.push(doc.id);
         });
+        currentIndex = 0;
+        displayWords();
+    });
 }
 
 function displayWords() {
     const userId = auth.currentUser.uid;
     if (wordKeys.length === 0) return;
     const wordId = wordKeys[currentIndex];
-    db.collection('users').doc(userId).collection('words').doc(wordId).get().then((doc) => {
-        if (doc.exists) {
-            const wordData = doc.data();
+    getDoc(doc(db, 'users', userId, 'words', wordId)).then((docSnap) => {
+        if (docSnap.exists()) {
+            const wordData = docSnap.data();
 
             const results = document.getElementById('results');
             results.innerHTML = '';
@@ -151,27 +155,8 @@ function nextWord() {
 function editWord(index) {
     const wordId = wordKeys[index];
     const userId = auth.currentUser.uid;
-    db.collection('users').doc(userId).collection('words').doc(wordId).get().then((doc) => {
-        if (doc.exists) {
-            const wordData = doc.data();
+    getDoc(doc(db, 'users', userId, 'words', wordId)).then((docSnap) => {
+        if (docSnap.exists()) {
+            const wordData = docSnap.data();
             document.getElementById('wordInput').value = wordData.word;
-            document.getElementById('meaningInput').value = wordData.meaning;
-            document.getElementById('synonymsInput').value = wordData.synonyms.join(', ');
-            document.getElementById('antonymsInput').value = wordData.antonyms.join(', ');
-        }
-    });
-    scrollToTop();
-}
-
-function clearInputs() {
-    document.getElementById('wordInput').value = '';
-    document.getElementById('meaningInput').value = '';
-    document.getElementById('synonymsInput').value = '';
-    document.getElementById('antonymsInput').value = '';
-}
-
-function scrollToTop() {
-    window.scrollTo(0, 0);
-}
-
-window.onload = loadWords;
+            document.getElementById('meaningInput').value = wordData.mean[_{{{CITATION{{{_1{](https://github.com/SeanCena123/test-project-viola/tree/66037dd59ce3ad042e431600ef674f0cc66797d8/public%2Fjs%2Fsignin.js)[_{{{CITATION{{{_2{](https://github.com/pauloperezdev/FirebaseAuth/tree/06d1e89132f59d989ec5d8cfe3c5c00e373147b1/index.php)[_{{{CITATION{{{_3{](https://github.com/timecircle/kingpang/tree/9adfd029bb0f2ec469afdaa76d24dc1eea4c48a2/resources%2Fviews%2Fcomponents%2Flayout%2Finc%2Fouter.blade.php)[_{{{CITATION{{{_4{](https://github.com/GreatGuyGin/22/tree/16d269201d591757a57aa77d0e6572df99c0f7fd/index.php)[_{{{CITATION{{{_5{](https://github.com/epic-developer/ExecAssist/tree/24d5b36ab5393d40221aac2abcd1d82a9aabc441/index.js)[_{{{CITATION{{{_6{](https://github.com/kunjalpatel2001/Shopping-Website/tree/ac0f5e511e0bf1e35375480da53d2cb221143033/storage%2Fframework%2Fviews%2F8477a979cdb80a78292d92a7ff454dec311b96f1.php)
