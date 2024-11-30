@@ -8,7 +8,15 @@
 </head>
 <body>
     <div class="app-container">
-        <div class="input-section">
+        <div class="auth-section">
+            <h1>Word Synonyms and Antonyms</h1>
+            <input type="email" id="emailInput" placeholder="Enter your email">
+            <input type="password" id="passwordInput" placeholder="Enter your password">
+            <button onclick="signUp()">Sign Up</button>
+            <button onclick="signIn()">Sign In</button>
+            <button onclick="signOut()">Sign Out</button>
+        </div>
+        <div class="input-section" style="display: none;">
             <h1>Add a Word</h1>
             <input type="text" id="wordInput" placeholder="Enter a word">
             <input type="text" id="meaningInput" placeholder="Enter meaning">
@@ -16,7 +24,7 @@
             <input type="text" id="antonymsInput" placeholder="Enter antonyms (comma separated)">
             <button onclick="addWord()">Add Word</button>
         </div>
-        <div class="display-section">
+        <div class="display-section" style="display: none;">
             <h1>Word Synonyms and Antonyms</h1>
             <div id="results"></div>
             <button onclick="nextWord()">Next Word</button>
@@ -25,6 +33,9 @@
             <p>Sumonto Biswas, MME, BUET</p>
         </footer>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
