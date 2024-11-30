@@ -33,9 +33,43 @@
             <p>Sumonto Biswas, MME, BUET</p>
         </footer>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtekNe0gbPQvOgMRV9jLdcrawomqhsdV0",
+            authDomain: "worldofpera-99e25.firebaseapp.com",
+            projectId: "worldofpera-99e25",
+            storageBucket: "worldofpera-99e25.firebasestorage.app",
+            messagingSenderId: "380134025599",
+            appId: "1:380134025599:web:4fd3fb84d9f495ab71d24a",
+            measurementId: "G-EPPFPECJZ2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentIndex = 0;
+        let wordKeys = [];
+
+        async function signUp() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                alert('Account created!');
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        async function signIn() {
+            const email = document
