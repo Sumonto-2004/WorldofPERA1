@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Synonyms and Antonyms</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="input-section">
+            <h1>Add a Word</h1>
+            <input type="text" id="wordInput" placeholder="Enter a word">
+            <input type="text" id="meaningInput" placeholder="Enter meaning">
+            <input type="text" id="synonymsInput" placeholder="Enter synonyms (comma separated)">
+            <input type="text" id="antonymsInput" placeholder="Enter antonyms (comma separated)">
+            <button onclick="addWord()">Add Word</button>
+        </div>
+        <div class="display-section">
+            <h1>Word Synonyms and Antonyms</h1>
+            <div id="results"></div>
+            <button onclick="nextWord()">Next Word</button>
+        </div>
+        <footer>
+            <p>Sumonto Biswas, MME, BUET</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
